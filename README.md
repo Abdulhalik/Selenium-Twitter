@@ -12,7 +12,7 @@ https://selenium-python.readthedocs.io/installation.html
 
 ## Enviroment variables
 
-Create a file named "logininfo.py" in the root directory and fill its contents as follows.
+Create a file named "logininfo.py" in the root directory and fill its contents as follows. These are your user account informations in Twitter.
 
 ```ruby
 username = XXX
