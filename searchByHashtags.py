@@ -35,6 +35,14 @@ time.sleep(3)
 searchArea.send_keys(Keys.ENTER)
 time.sleep(5)
 
+tweetList = []
+# Tweet Text Selectors
+selectors = ".css-901oao.r-jwli3a.r-1qd0xha.r-a023e6.r-16dba41.r-ad9z0x.r-bcqeeo.r-bnwqim.r-qvutc0"
+tweetTexts = browser.find_elements_by_css_selector(selectors)
+
+for tweet in tweetTexts:
+    tweetList.append(tweet.text)
+
 # To run the JavaScript in Selenium use execute.script()
 # To get all tweets browser must be scrolled, and this'll load another tweets so, to do this we have to run a simple script
 # -- Suana dek sadece yuklenen tweetleri alabiliyoruz. Daha fazla tweet icin browseri scroll edip yeni tweetler yuklemeliyiz.
@@ -51,19 +59,21 @@ while match == False:
     if lastCount == lenOfPage:
         match = True
 
-time.sleep(5)
-
-# Tweet Text Selectors
-selectors = ".css-901oao.r-jwli3a.r-1qd0xha.r-a023e6.r-16dba41.r-ad9z0x.r-bcqeeo.r-bnwqim.r-qvutc0"
 tweetTexts = browser.find_elements_by_css_selector(selectors)
+
+tweetList.pop()
+for tweet in tweetTexts:
+    tweetList.append(tweet.text)
+
+time.sleep(5)
 
 # Write all tweets into the Txt File
 tweetCount = 1
 with open("tweets.txt", "w", encoding= "UTF-8") as file:
     file.write("TWITTER - TWEETS ABOUT 'SAKIR KOCABAS' - #sakirkocabas \n")
     file.write("\n------------------------------------------------------\n")
-    for tweet in tweetTexts:
-        file.write(str(tweetCount) + ".\n" + tweet.text + "\n")
+    for tweet in tweetList:
+        file.write(str(tweetCount) + ".\n" + tweet + "\n")
         file.write("*****************************************************\n")
         tweetCount += 1
 
